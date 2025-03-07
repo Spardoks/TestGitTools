@@ -99,8 +99,18 @@ $ git show 8c928e835
 ### Найдите все коммиты, в которых была изменена функция `globalPluginDirs`.
 
 ```
-$ git log -S'func globalPluginDirs(' --oneline
+# ищем, где функция находится
+$ git grep -i  "func globalPluginDirs"
+internal/command/cliconfig/plugins.go:func GlobalPluginDirs() []string {
+
+
+# ищем изменения, связанные с функцией внутри указанного файла
+$ git log -L:GlobalPluginDirs:internal/command/cliconfig/plugins.go --oneline -q
 7c4aeac5f3 stacks: load credentials from config file on startup (#35952)
+78b1220558 Remove config.go and update things using its aliases
+52dbf94834 keep .terraform.d/plugins for discovery
+41ab0aef7a Add missing OS_ARCH dir to global plugin paths
+66ebff90cd move some more plugin search path logic to command
 8364383c35 Push plugin discovery down into command package
 ```
 
